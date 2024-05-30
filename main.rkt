@@ -46,3 +46,25 @@
          (define frame_number (list-ref page_table (binary_to_decimal page_number)))
          (string-append frame_number page_offset))
        args))
+
+
+; helper function to calculate factorial value of an int
+(define (factorial n)
+  (if (= n 0)
+      1
+      (* n (factorial (- n 1)))))
+
+
+; h4elper function to transform degrees to radians
+(define (degree_to_radian degree)
+  (* degree (/ pi 180)))
+
+
+(define (find_sin value num) ; 3.5 DONE
+  (define (taylor-term n x) ; the term inside the sigma(sum) operatoe
+    (* (/ (expt -1 n) (factorial (+ (* 2 n) 1))) (expt x (+ (* 2 n) 1))))
+  (define (taylor-sum n x acc) ; recursive part that sums up the taylor terms
+    (if (>= n num)
+        acc
+        (taylor-sum (+ n 1) x (+ acc (taylor-term n x)))))
+  (taylor-sum 0 (degree_to_radian value) 0))
