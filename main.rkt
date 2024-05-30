@@ -17,3 +17,13 @@
          (map (lambda (x y) (cons (char-to-decimal x) y))
               binary-list
               (range 0 (length binary-list)))))
+
+
+(define (relocator args limit base) ; 3.2 DONE
+  (map (lambda (binary-address)
+         (let ((decimal-address (binary_to_decimal binary-address)))
+           (if (> decimal-address limit)
+               -1
+               (+ decimal-address base))))
+       args))
+
