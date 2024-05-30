@@ -79,6 +79,18 @@
   (modulo sum table_size))
 
 
+(define (hashed_page arg table_size page_table page_size) ; 3.7 DONE
+  (define divided (divide_address_space arg page_size))
+  (define page-number (car divided))
+  (define page-offset (cadr divided))
+  (define hash-value (modulo (myhash page-number table_size) table_size))
+  (define matching-entry (assoc page-number (list-ref page_table hash-value))) ;loook up the hash table to find a matching entry
+  (if matching-entry
+      (let ((frame-number (cadr matching-entry)))
+        (string-append frame-number page-offset))
+      "No matching entry found in page table"))
+
+
 (define (split_addresses args size) ; 3.8 DONE
   (define (split_addresses_helper str chunk-size)
     (if (<= (string-length str) chunk-size)
