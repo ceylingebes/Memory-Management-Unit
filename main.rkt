@@ -77,3 +77,12 @@
   (define first-ten-digits (substring (number->string sinus) 2 12))
   (define sum (apply + (map (compose string->number string) (string->list first-ten-digits))))
   (modulo sum table_size))
+
+
+(define (split_addresses args size) ; 3.8 DONE
+  (define (split_addresses_helper str chunk-size)
+    (if (<= (string-length str) chunk-size)
+        (list (list str))
+        (cons (list (substring str 0 chunk-size))
+              (split_addresses_helper (substring str chunk-size) chunk-size))))
+  (split_addresses_helper args size))
