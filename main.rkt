@@ -68,3 +68,12 @@
         acc
         (taylor-sum (+ n 1) x (+ acc (taylor-term n x)))))
   (taylor-sum 0 (degree_to_radian value) 0))
+
+
+(define (myhash arg table_size) ; 3.6 DONE
+  (define decimal-arg (binary_to_decimal arg))
+  (define modulus (+ (modulo decimal-arg 5) 1))
+  (define sinus (find_sin decimal-arg modulus))
+  (define first-ten-digits (substring (number->string sinus) 2 12))
+  (define sum (apply + (map (compose string->number string) (string->list first-ten-digits))))
+  (modulo sum table_size))
