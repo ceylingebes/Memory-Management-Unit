@@ -36,3 +36,13 @@
   (define page_number (substring num 0 page_number_bits))
   (define page_offset (substring num page_number_bits address_length))
   (list page_number page_offset))
+
+
+(define (page args page_table page_size) ; 3.4 DONE
+  (map (lambda (address)
+         (define divided (divide_address_space address page_size))
+         (define page_number (car divided))
+         (define page_offset (cadr divided))
+         (define frame_number (list-ref page_table (binary_to_decimal page_number)))
+         (string-append frame_number page_offset))
+       args))
