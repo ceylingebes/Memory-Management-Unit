@@ -27,3 +27,12 @@
                (+ decimal-address base))))
        args))
 
+
+(define (divide_address_space num page_size) ; 3.3 DONE
+  (define page_size_bytes (* page_size 1024)) ; convert KB to bytes
+  (define offset_bits (integer-length (- page_size_bytes 1))) ; calculate the number of bits for offset
+  (define address_length (string-length num))
+  (define page_number_bits (- address_length offset_bits)) ; calculate the number of bits for page number
+  (define page_number (substring num 0 page_number_bits))
+  (define page_offset (substring num page_number_bits address_length))
+  (list page_number page_offset))
