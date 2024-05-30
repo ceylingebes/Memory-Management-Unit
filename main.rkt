@@ -98,3 +98,9 @@
         (cons (list (substring str 0 chunk-size))
               (split_addresses_helper (substring str chunk-size) chunk-size))))
   (split_addresses_helper args size))
+
+
+(define (map_addresses args table_size page_table page_size address_space_size) ; 3.9 DONE
+  (define logical_addresses (split_addresses args address_space_size))
+  (map (lambda (addr) (hashed_page (car addr) table_size page_table page_size)) logical_addresses))
+
